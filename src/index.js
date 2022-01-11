@@ -1,17 +1,45 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import {BrowserRouter} from "react-router-dom";
+
+import i18n from "i18next";
+import {initReactI18next} from "react-i18next";
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
+
+import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'flag-icon-css/css/flag-icons.min.css'
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+
+i18n
+    .use(HttpApi)
+    .use(initReactI18next)
+    .use(LanguageDetector)
+    .init({
+        supportedLngs: ['en', 'ka'],
+        fallbackLng: "en",
+        detection: {
+            order: ['path', 'cookie', 'htmlTag', 'localStorage', 'subdomain'],
+            caches: ['cookie']
+        },
+        backend: {
+            loadPath: '/language/locales/{{lng}}/translation.json',
+        },
+
+    });
+const loadingMarkap = (
+    <div className="py-4 text-center">
+        <h2>Loading..</h2>
+    </div>
+)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Suspense fallback={loadingMarkap}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Suspense>,
+    document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

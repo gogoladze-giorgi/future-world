@@ -1,0 +1,20 @@
+/*@media (max-width: 1000px) {*/
+/*    .dropdown-item {*/
+/*        height: 60px;*/
+/*        font-weight: bold;*/
+/*        font-size: 2.2rem;*/
+/*        margin-right: 2rem;*/
+
+/*    }*/
+/*}*/
+@media (max-width: 980px) {
+    .flag-button {
+        height: 2rem;
+        font-size: 1.4rem;
+        color: black;
+    }
+
+    .flag-button span {
+        font-size: 2rem;
+    }
+}
